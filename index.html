@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>빛으로 짓는 인생의 무대</title>
+<meta name="description" content="LED 박스 설치 작품을 수업 후에도 스스로 설치·조작·수리할 수 있게 돕는 학생용 키트">
+<meta name="theme-color" content="#15171C">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=IBM+Plex+Sans+KR:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%2315171C'/%3E%3Ccircle cx='16' cy='16' r='7' fill='%23E8A33D'/%3E%3C/svg%3E">
+
+</head>
+<body>
+<nav class="topnav" aria-label="사이트 메뉴"><div class="wrap">
+<a class="brand" href="index.html"><span class="dot" aria-hidden="true"></span>인생의 무대</a>
+<a class="nav" href="index.html" aria-current="page">🏠 홈</a>
+<a class="nav" href="workbench.html">🛠️ 실습 워크벤치</a>
+<a class="nav" href="playbook.html">📖 초보 가이드북</a>
+</div></nav>
+<header class="hero">
+<div class="glows" aria-hidden="true"></div>
+<div class="wrap">
+<p class="kicker" style="color:#E8A33D">이사벨여고 · LED 조명 설치 수업</p>
+<h1>빛으로 짓는 인생의 무대</h1>
+<p class="lead">수업은 끝나도 작품은 계속 켜져 있어요. 남은 박스를 달고, 효과를 바꾸고, 고장이 나면 고치는 일을 이제 여러분이 스스로 합니다. 막히면 이 사이트부터 여세요.</p>
+<div class="tags"><span class="tag">박스 약 100개 · LED 노드 100개</span><span class="tag">ESP32 + WLED</span><span class="tag">생성형 AI로 효과 만들기</span></div>
+</div>
+</header>
+<main class="wrap">
+
+<section aria-labelledby="where">
+<p class="kicker">어디로 갈까요?</p>
+<h2 id="where">하려는 일을 고르세요</h2>
+<div class="grid two" style="margin-top:20px">
+<a class="card" href="workbench.html#ai"><span class="icon">🌊</span><h3>효과를 바꾸고 싶어요</h3><p>원하는 장면을 말로 적으면 AI가 WLED 명령을 써 줍니다. 프롬프트 만들기, 답 검사, 프리셋 붙여넣기까지.</p><span class="go">AI로 효과 바꾸기 →</span></a>
+<a class="card" href="workbench.html#install"><span class="icon">📦</span><h3>박스를 더 달아야 해요</h3><p>박스 방향 규칙, 한 박스씩 다는 순서, 결선 체크리스트. 체크한 것은 이 기기에 남아요.</p><span class="go">남은 박스 설치·결선 →</span></a>
+<a class="card" href="workbench.html#hunt"><span class="icon">🔦</span><h3>불이 이상해요</h3><p>증상을 고르면 어디부터 보면 되는지 알려 줘요. 고장 사냥 다섯 단계와 반으로 나눠 찾기.</p><span class="go">고장 사냥 →</span></a>
+<a class="card" href="playbook.html#connect"><span class="icon">📶</span><h3>WLED가 안 열려요</h3><p>WLED-AP 접속법과, 와이파이·화면이 안 열릴 때 확인할 것.</p><span class="go">WLED 접속법 →</span></a>
+</div>
+</section>
+
+<section aria-labelledby="pages">
+<p class="kicker">이 사이트의 페이지</p>
+<h2 id="pages">두 곳만 기억하면 돼요</h2>
+<div class="grid two" style="margin-top:20px">
+<a class="card" href="workbench.html"><span class="icon">🛠️</span><h3>실습 워크벤치</h3><p class="small">작업할 때 여기만 보면 됩니다. 프롬프트·명령 복사, AI 답 검사기, 설치 체크리스트, 증상별 고장 찾기.</p><span class="go">열기 →</span></a>
+<a class="card" href="playbook.html"><span class="icon">📖</span><h3>초보 가이드북</h3><p class="small">WLED 접속과 프리셋 저장법, 자주 나는 고장 17가지의 증상·이유·해결, AI를 쓸 때 지킬 것.</p><span class="go">열기 →</span></a>
+</div>
+</section>
+
+<section aria-labelledby="shape">
+<p class="kicker">우리 작품</p>
+<h2 id="shape">열린 면은 모두 안쪽, 관람객은 원 안에서 본다</h2>
+<div class="grid two" style="margin-top:20px;align-items:start">
+<figure class="card" style="background:#F6F3EC;padding:12px"><svg viewBox="0 0 600 630" role="img" aria-label="완성 평면도: 입구가 열린 박스 링, 뒤쪽 가운데 컨트롤러, 양쪽으로 흐르는 구간"><defs><marker id="am" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#C9821B"/></marker><marker id="gm" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#8A8F98"/></marker></defs><g transform="rotate(0.00 300 330)"><rect x="276.5" y="137" width="47" height="48" fill="#F3DFB6"/><path d="M276.5 185V137H323.5V185" fill="none" stroke="#C9821B" stroke-width="3"/><path d="M276.5 185H323.5" stroke="#3D7EA6" stroke-width="1.5" stroke-dasharray="4 3"/><circle cx="300" cy="161.0" r="5" fill="#15171C"/></g><g transform="rotate(18.95 300 330)"><rect x="276.5" y="137" width="47" height="48" fill="#FBFAF6"/><path d="M276.5 185V137H323.5V185" fill="none" stroke="#8A8F98" stroke-width="1.5"/><path d="M276.5 185H323.5" stroke="#3D7EA6" stroke-width="1.5" stroke-dasharray="4 3"/><circle cx="300" cy="161.0" r="5" fill="#15171C"/></g><g transform="rotate(37.89 300 330)"><rect x="276.5" y="137" width="47" height="48" fill="#FBFAF6"/><path d="M276.5 185V137H323.5V185" fill="none" stroke="#8A8F98" stroke-width="1.5"/><path d="M276.5 185H323.5" stroke="#3D7EA6" stroke-width="1.5" stroke-dasharray="4 3"/><circle cx="300" cy="161.0" r="5" fill="#15171C"/></g><g transform="rotate(56.84 300 330)"><rect x="276.5" y="137" width="47" height="48" fill="#FBFAF6"/><path d="M276.5 185V137H323.5V185" fill="none" stroke="#8A8F98" stroke-width="1.5"/><path d="M276.5 185H323.5" stroke="#3D7EA6" stroke-width="1.5" stroke-dasharray="4 3"/><circle cx="300" cy="161.0" r="5" fill="#15171C"/></g><g transform="rotate(75.79 300 330)"><rect x="276.5" y="137" width="47" height="48" fill="#FBFAF6"/><path d="M276.5 185V137H323.5V185" fill="none" stroke="#8A8F98" stroke-width="1.5"/><path d="M276.5 185H323.5" stroke="#3D7EA6" stroke-width="1.5" stroke-dasharray="4 3"/><circle cx="300" cy="161.0" r="5" fill="#15171C"/></g><g transform="rotate(94.74 300 330)"><rect x="276.5" y="137" width="47" height="48" fill="#FBFAF6"/><path d="M276.5 185V137H323.5V185" fill="none" stroke="#8A8F98" stroke-width="1.5"/><path d="M276.5 185H323.5" stroke="#3D7EA6" stroke-width="1.5" stroke-dasharray="4 3"/><circle cx="300" cy="161.0" r="5" fill="#15171C"/></g><g transform="rotate(113.68 300 330)"><rect x="276.5" y="137" width="47" height="48" fill="#FBFAF6"/><path d="M276.5 185V137H323.5V185" fill="none" stroke="#8A8F98" stroke-width="1.5"/><path d="M276.5 185H323.5" stroke="#3D7EA6" stroke-width="1.5" stroke-dasharray="4 3"/><circle cx="300" cy="161.0" r="5" fill="#15171C"/></g><g transform="rotate(132.63 300 330)"><rect x="276.5" y="137" width="47" height="48" fill="#FBFAF6"/><path d="M276.5 185V137H323.5V185" fill="none" stroke="#8A8F98" stroke-width="1.5"/><path d="M276.5 185H323.5" stroke="#3D7EA6" stroke-width="1.5" stroke-dasharray="4 3"/><circle cx="300" cy="161.0" r="5" fill="#15171C"/></g><g transform="rotate(151.58 300 330)"><rect x="276.5" y="137" width="47" height="48" fill="#FBFAF6"/><path d="M276.5 185V137H323.5V185" fill="none" stroke="#8A8F98" stroke-width="1.5"/><path d="M276.5 185H323.5" stroke="#3D7EA6" stroke-width="1.5" stroke-dasharray="4 3"/><circle cx="300" cy="161.0" r="5" fill="#15171C"/></g><g transform="rotate(208.42 300 330)"><rect x="276.5" y="137" width="47" height="48" fill="#FBFAF6"/><path d="M276.5 185V137H323.5V185" fill="none" stroke="#8A8F98" stroke-width="1.5"/><path d="M276.5 185H323.5" stroke="#3D7EA6" stroke-width="1.5" stroke-dasharray="4 3"/><circle cx="300" cy="161.0" r="5" fill="#15171C"/></g><g transform="rotate(227.37 300 330)"><rect x="276.5" y="137" width="47" height="48" fill="#FBFAF6"/><path d="M276.5 185V137H323.5V185" fill="none" stroke="#8A8F98" stroke-width="1.5"/><path d="M276.5 185H323.5" stroke="#3D7EA6" stroke-width="1.5" stroke-dasharray="4 3"/><circle cx="300" cy="161.0" r="5" fill="#15171C"/></g><g transform="rotate(246.32 300 330)"><rect x="276.5" y="137" width="47" height="48" fill="#FBFAF6"/><path d="M276.5 185V137H323.5V185" fill="none" stroke="#8A8F98" stroke-width="1.5"/><path d="M276.5 185H323.5" stroke="#3D7EA6" stroke-width="1.5" stroke-dasharray="4 3"/><circle cx="300" cy="161.0" r="5" fill="#15171C"/></g><g transform="rotate(265.26 300 330)"><rect x="276.5" y="137" width="47" height="48" fill="#FBFAF6"/><path d="M276.5 185V137H323.5V185" fill="none" stroke="#8A8F98" stroke-width="1.5"/><path d="M276.5 185H323.5" stroke="#3D7EA6" stroke-width="1.5" stroke-dasharray="4 3"/><circle cx="300" cy="161.0" r="5" fill="#15171C"/></g><g transform="rotate(284.21 300 330)"><rect x="276.5" y="137" width="47" height="48" fill="#FBFAF6"/><path d="M276.5 185V137H323.5V185" fill="none" stroke="#8A8F98" stroke-width="1.5"/><path d="M276.5 185H323.5" stroke="#3D7EA6" stroke-width="1.5" stroke-dasharray="4 3"/><circle cx="300" cy="161.0" r="5" fill="#15171C"/></g><g transform="rotate(303.16 300 330)"><rect x="276.5" y="137" width="47" height="48" fill="#FBFAF6"/><path d="M276.5 185V137H323.5V185" fill="none" stroke="#8A8F98" stroke-width="1.5"/><path d="M276.5 185H323.5" stroke="#3D7EA6" stroke-width="1.5" stroke-dasharray="4 3"/><circle cx="300" cy="161.0" r="5" fill="#15171C"/></g><g transform="rotate(322.11 300 330)"><rect x="276.5" y="137" width="47" height="48" fill="#FBFAF6"/><path d="M276.5 185V137H323.5V185" fill="none" stroke="#8A8F98" stroke-width="1.5"/><path d="M276.5 185H323.5" stroke="#3D7EA6" stroke-width="1.5" stroke-dasharray="4 3"/><circle cx="300" cy="161.0" r="5" fill="#15171C"/></g><g transform="rotate(341.05 300 330)"><rect x="276.5" y="137" width="47" height="48" fill="#F3DFB6"/><path d="M276.5 185V137H323.5V185" fill="none" stroke="#C9821B" stroke-width="3"/><path d="M276.5 185H323.5" stroke="#3D7EA6" stroke-width="1.5" stroke-dasharray="4 3"/><circle cx="300" cy="161.0" r="5" fill="#15171C"/></g><path d="M352.7 118.5A218 218 0 0 1 381.7 532.1" fill="none" stroke="#C9821B" stroke-width="3" marker-end="url(#am)"/><path d="M247.3 118.5A218 218 0 0 0 218.3 532.1" fill="none" stroke="#C9821B" stroke-width="3" marker-end="url(#am)"/><rect x="230" y="48" width="140" height="44" rx="8" fill="#15171C"/><path d="M316 92V134" stroke="#C9821B" stroke-width="2.5" marker-end="url(#am)" fill="none"/><path d="M284 92L242.2 142.7" stroke="#C9821B" stroke-width="2.5" marker-end="url(#am)" fill="none"/><path d="M300 565V465" stroke="#8A8F98" stroke-width="2" marker-end="url(#gm)" fill="none"/><g font-family="IBM Plex Sans KR, sans-serif" font-size="17">
+<text x="300" y="76" fill="#F6F3EC" text-anchor="middle" font-weight="600">컨트롤러</text>
+<text x="14" y="48" fill="#9A5F0E" font-weight="600">구간 3 → 4</text><text x="14" y="70" fill="#9A5F0E">반시계 방향</text>
+<text x="586" y="48" fill="#9A5F0E" font-weight="600" text-anchor="end">구간 1 → 2</text><text x="586" y="70" fill="#9A5F0E" text-anchor="end">시계 방향</text>
+<text x="300" y="330" fill="#15171C" text-anchor="middle" font-size="22" font-weight="600">관람객 자리</text>
+<text x="300" y="356" fill="#6B6457" text-anchor="middle">내경 약 1.8m</text>
+<text x="14" y="566" fill="#3A3F47">구간 4 끝</text><text x="14" y="588" fill="#3A3F47">끝단 급전</text>
+<text x="586" y="566" fill="#3A3F47" text-anchor="end">구간 2 끝</text><text x="586" y="588" fill="#3A3F47" text-anchor="end">끝단 급전</text>
+<text x="300" y="606" fill="#15171C" text-anchor="middle" font-weight="600">입구 · 2열 비움</text>
+</g></svg><figcaption style="color:#6B6457;padding:0 8px 4px">위에서 본 평면도. 실선은 박스 벽, 점선은 열린 면, 가운데 점은 LED 노드예요.</figcaption></figure>
+<div class="grid" style="gap:12px">
+<div class="card"><h3>박스 약 100개</h3><p>17열 × 6단으로 원을 이루고, 한쪽은 관람객 입구로 비워 둡니다. 열린 면은 모두 원 안쪽을 봐요.</p></div>
+<div class="card"><h3>노드 100개 = 4구간 × 25개</h3><p>노드는 박스 천장 정중앙에 하나씩. 선은 박스 옆면 구멍으로 빠져 이웃 박스로 이어져요.</p></div>
+<div class="card"><h3>컨트롤러는 뒤쪽 가운데</h3><p>관람객 눈에 안 띄게 숨겨 두고, 오른쪽 절반은 시계 방향(구간 1→2), 왼쪽 절반은 반시계 방향(구간 3→4)으로 흐릅니다.</p></div>
+<div class="card"><h3>끝단 급전</h3><p>구간 끝(입구 양옆)에서 전원을 한 번 더 넣어, 끝까지 고르게 켜지게 합니다.</p></div>
+</div>
+</div>
+</section>
+
+<section aria-labelledby="one">
+<div class="card dark" style="padding:32px">
+<p class="kicker" style="color:#E8A33D">꼭 기억할 한 문장</p>
+<h2 id="one" style="color:#F6F3EC">연결된 순서가 곧 번호</h2>
+<p style="margin-top:12px;color:#C9C3B6;max-width:44em">노드에는 저장된 번호가 없어요. 컨트롤러에서 몇 번째로 연결됐는지가 그 노드의 자리입니다. 그래서 고장 난 노드를 새것으로 바꿔도 설정할 게 없고, 반대로 순서를 바꿔 달면 엉뚱한 박스가 켜져요. 선은 세 가닥뿐입니다: <b style="color:#E8A33D">V+</b>(12V), <b style="color:#E8A33D">DATA</b>(신호), <b style="color:#E8A33D">GND</b>(접지).</p>
+</div>
+</section>
+
+<section aria-labelledby="done">
+<p class="kicker">수업에서 한 일</p>
+<h2 id="done">3차시 돌아보기</h2>
+<div class="table-wrap" style="margin-top:20px"><table>
+<thead><tr><th style="width:90px">차시</th><th style="width:30%">주제</th><th>한 일</th></tr></thead>
+<tbody>
+<tr><td><b>1차시</b></td><td><b>선 세 가닥으로 100개를</b></td><td>전체 배치 보기, 카드 활동으로 데이지체인 원리 익히기, ESP32·WLED 접속, AI로 효과 만들어 프리셋에 붙여넣기</td></tr>
+<tr><td><b>2차시</b></td><td><b>끝단 급전과 결선</b></td><td>전압강하 시범(급전 전과 후), 결선 주의점, 5명씩 3세트 결선 실습, 설치 시작</td></tr>
+<tr><td><b>3차시</b></td><td><b>설치, 고장 사냥, 점등</b></td><td>박스 방향을 지키며 설치 릴레이, 숨긴 고장 찾기, 전시 효과 골라 저장하고 점등</td></tr>
+</tbody></table></div>
+</section>
+
+<section aria-labelledby="safe">
+<p class="kicker">혼자 하기 전에</p>
+<h2 id="safe">안전 수칙 다섯 가지</h2>
+<p class="lead">학생은 12V 쪽만 만집니다. 콘센트·어댑터 플러그·멀티탭(220V)은 선생님만 다루고, 전원은 선생님이 마지막에 켭니다.</p>
+<ol class="steps" style="margin-top:20px">
+<li><b>꽂기 전에 전원을 끈다.</b> 모든 결선은 전원이 꺼진 상태에서 합니다. 끄는 건 선생님께 부탁하세요.</li>
+<li><b>V+와 GND가 맞닿지 않게 한다.</b> 단락되면 전선이 뜨거워지고 부품이 상해요.</li>
+<li><b>뜨겁거나 냄새가 나면 혼자 해결하지 않는다.</b> 손을 떼고 선생님을 불러 전원을 차단합니다.</li>
+<li><b>전원이 켜진 상태에서 단자를 건드리지 않는다.</b> 단락 스파크가 날 수 있어요.</li>
+<li><b>내가 꽂은 것은 다른 사람이 한 번 확인한다.</b> 확인을 습관으로 만들어요.</li>
+</ol>
+</section>
+
+<section aria-labelledby="after">
+<p class="kicker">수업이 끝난 뒤에도</p>
+<h2 id="after">작품을 지키는 습관</h2>
+<div class="grid three" style="margin-top:20px">
+<div class="card"><span class="icon">✍️</span><h3>고친 것은 한 문장으로</h3><p class="small">"○번 노드 IN 커넥터가 덜 꽂혀 있었다"처럼 적어 두면 다음 사람이 빨라져요. 순서 기록표 옆에 함께 적어 두세요.</p></div>
+<div class="card"><span class="icon">💾</span><h3>프리셋은 지우지 않기</h3><p class="small">다른 조가 만든 효과도 전시 후보예요. 새 효과는 새 이름으로 저장합니다.</p></div>
+<div class="card"><span class="icon">🙋</span><h3>10분 막히면 멈추기</h3><p class="small">증상과 해 본 것을 적어서 선생님께 보여 주세요. 혼자 오래 붙잡는 것보다 빠릅니다.</p></div>
+</div>
+</section>
+</main>
+<footer><div class="wrap">빛으로 짓는 인생의 무대 · 이사벨여고 LED 조명 수업 학생용 키트 · 강사 마루나래<br>막히면 혼자 오래 붙잡지 말고, 증상을 적어서 선생님께 보여 주세요.</div></footer>
+<script src="common.js"></script>
+<script>
+(function(){
+  var box=document.querySelector('.glows'); if(!box) return;
+  var reduce=false; try{reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;}catch(e){}
+  var css=document.createElement('style');
+  css.textContent='.glows{position:absolute;inset:0;overflow:hidden}.glows i{position:absolute;border-radius:50%;background:#E8A33D;box-shadow:0 0 24px #E8A33D;opacity:.15;animation:breathe ease-in-out infinite}.glows i.b{background:#7FB2D1;box-shadow:0 0 24px #7FB2D1}@keyframes breathe{0%,100%{opacity:.08}50%{opacity:.85}}@media (prefers-reduced-motion: reduce){.glows i{animation:none;opacity:.4}}';
+  document.head.appendChild(css);
+  for(var i=0;i<18;i++){
+    var d=document.createElement('i'); var s=6+Math.random()*10;
+    d.style.width=d.style.height=s+'px';
+    d.style.left=(64+Math.random()*34)+'%'; d.style.top=(8+Math.random()*80)+'%';
+    if(Math.random()<.25) d.className='b';
+    d.style.animationDuration=(3+Math.random()*5)+'s'; d.style.animationDelay=(-Math.random()*8)+'s';
+    box.appendChild(d);
+  }
+})();
+</script>
+</body>
+</html>

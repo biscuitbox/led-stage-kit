@@ -1,0 +1,189 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>실습 워크벤치 · 빛으로 짓는 인생의 무대</title>
+<meta name="description" content="AI로 효과 바꾸기, 남은 박스 설치·결선, 고장 사냥을 스스로 하는 작업대">
+<meta name="theme-color" content="#15171C">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=IBM+Plex+Sans+KR:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%2315171C'/%3E%3Ccircle cx='16' cy='16' r='7' fill='%23E8A33D'/%3E%3C/svg%3E">
+
+</head>
+<body>
+<nav class="topnav" aria-label="사이트 메뉴"><div class="wrap">
+<a class="brand" href="index.html"><span class="dot" aria-hidden="true"></span>인생의 무대</a>
+<a class="nav" href="index.html">🏠 홈</a>
+<a class="nav" href="workbench.html" aria-current="page">🛠️ 실습 워크벤치</a>
+<a class="nav" href="playbook.html">📖 초보 가이드북</a>
+</div></nav>
+<main class="wrap">
+<header class="page-head">
+<p class="kicker">작업할 때는 여기만</p>
+<h1>🛠️ 실습 워크벤치</h1>
+<p class="lead">복사 버튼으로 프롬프트와 명령을 가져가고, 체크리스트를 하나씩 지우며 작업하세요. 체크한 내용과 붙여 넣은 목록은 이 기기의 브라우저에만 남아요.</p>
+<div class="chips" style="margin-top:18px">
+<a class="btn" href="#ai">① AI로 효과 바꾸기</a><a class="btn" href="#install">② 남은 박스 설치·결선</a><a class="btn" href="#hunt">③ 고장 사냥</a>
+</div>
+</header>
+
+<!-- ① AI -->
+<section class="block" id="ai" aria-labelledby="ai-h">
+<div class="block-head"><span class="num">1</span><div><h2 id="ai-h">AI로 효과 바꾸기</h2>
+<p class="muted">AI는 새 효과를 발명하지 않아요. WLED 안에 이미 있는 100가지가 넘는 효과 중 말에 가장 가까운 것을 고르고, 속도·색·밝기 숫자를 정해 명령을 써 줍니다.</p></div></div>
+
+<div class="card note"><b>와이파이 순서가 핵심</b><br>WLED-AP에는 인터넷이 없어요. <b>AI는 인터넷(LTE·학교 와이파이)에서</b> 쓰고 → 답을 복사 → <b>와이파이를 WLED-AP로 바꿔</b> 붙여 넣습니다. 복사한 내용은 와이파이를 바꿔도 남아 있어요.</div>
+
+<h3 class="sub">0. 효과 목록 준비 <span class="muted small">(선생님이 나눠 준 목록이 있으면 건너뛰기)</span></h3>
+<ol class="steps">
+<li>와이파이 <code>WLED-AP</code>(비밀번호 <code>wled1234</code>)에 연결하고 브라우저에서 <code>http://4.3.2.1/json/eff</code>를 열어 전부 복사합니다. 효과 이름 목록이에요.</li>
+<li>같은 방법으로 <code>http://4.3.2.1/json/pal</code>(팔레트 목록)도 복사합니다.</li>
+<li>아래 칸에 붙여 두면 프롬프트에 자동으로 들어가고, 이 기기에 저장돼요.</li>
+</ol>
+<div class="grid two" style="margin-top:12px">
+<label class="field">효과 목록 (/json/eff)<textarea id="effList" placeholder='["Solid","Blink","Breathe", ...]'></textarea></label>
+<label class="field">팔레트 목록 (/json/pal)<textarea id="palList" placeholder='["Default","* Random Cycle", ...]'></textarea></label>
+</div>
+<p class="small muted" id="listStatus" style="margin-top:6px">목록이 비어 있으면 프롬프트에 [효과 목록 붙여넣기] 자리만 남아요.</p>
+
+<h3 class="sub">1. 프롬프트 만들기</h3>
+<label class="field">원하는 장면을 한 문장으로
+<input type="text" id="scene" value="파도가 물결치듯이 파란색들이 서서히 점멸되도록 해줘."></label>
+<div class="chips" style="margin-top:10px" aria-label="예시 장면">
+<button type="button" class="chip" data-scene="반딧불이처럼 노란 빛이 여기저기서 천천히 켜졌다 꺼지게 해줘.">반딧불이</button>
+<button type="button" class="chip" data-scene="촛불처럼 따뜻한 주황빛이 조금씩 일렁이게 해줘.">촛불</button>
+<button type="button" class="chip" data-scene="밤하늘 별처럼 흰 빛이 무작위로 반짝이게 해줘.">별</button>
+<button type="button" class="chip" data-scene="노을처럼 주황에서 보라로 천천히 색이 바뀌게 해줘.">노을</button>
+<button type="button" class="chip" data-scene="100개 중 몇 개만 무작위로 아주 천천히 켜지고 꺼지게 해줘. 인생의 순간들처럼.">인생의 순간</button>
+</div>
+<div class="codebox" style="margin-top:14px"><button type="button" class="copy">📋 프롬프트 복사</button><pre id="promptOut"></pre></div>
+<p class="small muted" style="margin-top:6px">복사 → 인터넷 와이파이에서 AI(선생님이 정한 서비스)에 붙여넣기.</p>
+
+<h3 class="sub">2. AI 답 검사하기</h3>
+<p>AI의 답을 통째로 붙여 넣고 검사하세요. 코드 블록 표시나 휜 따옴표(“ ”)는 자동으로 고쳐서, 붙여 넣을 깨끗한 한 줄을 만들어 줍니다.</p>
+<label class="field" style="margin-top:10px">AI의 답<textarea id="aiAnswer" placeholder="AI가 준 답을 여기에 붙여 넣으세요"></textarea></label>
+<div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:10px"><button type="button" class="primary" id="checkBtn">🔍 검사하기</button><button type="button" id="exampleBtn">예시 답 넣어 보기</button></div>
+<div class="result" id="checkResult" aria-live="polite"></div>
+
+<h3 class="sub">3. WLED에 올리기</h3>
+<ol class="steps">
+<li>와이파이를 <code>WLED-AP</code>로 바꾸고 <code>4.3.2.1</code>을 엽니다.</li>
+<li>아래쪽 <b>Presets</b> 탭 → <b>+ Preset</b>.</li>
+<li>이름은 "파도-1조"처럼 <b>새 이름</b>으로. 다른 사람 프리셋을 덮어쓰지 않아요.</li>
+<li><b>Use current state</b> 체크를 끕니다. 그러면 <b>API command</b> 칸이 나와요.</li>
+<li>검사기에서 복사한 한 줄을 붙여 넣고 <b>Save</b>.</li>
+<li>목록에서 그 이름을 누르면 바로 켜집니다. 고칠 때는 프리셋 옆 연필(편집) → API command 바꾸고 Save.</li>
+</ol>
+<p class="small muted" style="margin-top:10px">연습용 명령 (Lake 효과 + Ocean 팔레트, 느리게). 효과 번호는 WLED 버전마다 다를 수 있어요.</p>
+<div class="codebox"><button type="button" class="copy">📋 복사</button><pre>{"on":true,"bri":140,"seg":[{"id":0,"fx":75,"sx":70,"ix":160,"pal":9,"col":[[0,80,255],[0,20,80]]}]}</pre></div>
+
+<h3 class="sub">4. 보고 고치기</h3>
+<p>말과 다르면, 어디가 다른지 AI에게 그대로 말하세요. 눌러서 복사:</p>
+<div class="chips" style="margin-top:10px">
+<button type="button" class="chip" data-copy="좋아. 그런데 더 느리게 바꿔 줘. 같은 형식으로 한 줄만 다시 써 줘.">더 느리게</button>
+<button type="button" class="chip" data-copy="흰색은 빼고 파란색 계열만 쓰게 바꿔 줘. 같은 형식으로 한 줄만 다시 써 줘.">파란색만</button>
+<button type="button" class="chip" data-copy="한꺼번에 말고 몇 개씩만 켜지게 바꿔 줘. 같은 형식으로 한 줄만 다시 써 줘.">몇 개씩만</button>
+<button type="button" class="chip" data-copy="전체적으로 더 어둡고 차분하게, bri는 80 정도로 바꿔 줘. 같은 형식으로 한 줄만 다시 써 줘.">더 차분하게</button>
+<button type="button" class="chip" data-copy="네가 고른 효과 번호(fx)가 내가 준 효과 목록에서 몇 번째 이름인지 다시 확인하고, 틀렸으면 고쳐서 한 줄로 써 줘.">번호 다시 확인</button>
+</div>
+<div class="table-wrap" style="margin-top:16px"><table>
+<thead><tr><th style="width:90px">숫자</th><th style="width:28%">뜻</th><th>직접 고칠 때</th></tr></thead>
+<tbody>
+<tr><td><code>fx</code></td><td>효과 번호</td><td>효과 목록에서 0부터 센 순서. 이름으로 번호를 찾아요.</td></tr>
+<tr><td><code>sx</code></td><td>속도 (0~255)</td><td>낮추면 느려져요. 작품에는 30~90 정도가 차분해요.</td></tr>
+<tr><td><code>ix</code></td><td>세기 (0~255)</td><td>효과마다 다르지만 대개 켜지는 개수나 세기예요.</td></tr>
+<tr><td><code>pal</code></td><td>팔레트 번호</td><td>0(Default)이면 col의 첫 색만 쓰는 효과가 많아요.</td></tr>
+<tr><td><code>col</code></td><td>색 [R,G,B]</td><td>0~255. [0,80,255]는 파랑, [255,140,0]은 주황.</td></tr>
+<tr><td><code>bri</code></td><td>밝기 (0~255)</td><td>우리 약속은 150 이하. 너무 밝은 건 ABL이 막아 줘요.</td></tr>
+</tbody></table></div>
+<div class="card dark" style="margin-top:16px"><h3>전시 효과로 쓰고 싶다면</h3><p>선생님께 말하세요. 고른 프리셋을 <b style="color:#E8A33D">부팅 시 적용</b>으로 지정하거나, 여러 개를 <b style="color:#E8A33D">Playlist</b>로 묶어 돌아가며 켜지게 합니다. 전시장에는 전원만 있어서, 켜기만 하면 그 효과가 나와야 해요.</p></div>
+</section>
+
+<!-- ② 설치 -->
+<section class="block" id="install" aria-labelledby="in-h">
+<div class="block-head"><span class="num">2</span><div><h2 id="in-h">남은 박스 설치·결선</h2>
+<p class="muted">박스 방향이 기준이고, 선이 박스에 맞춥니다. 한 박스씩 끝까지 하고, 구간을 이을 때마다 켜서 확인해요.</p></div></div>
+
+<h3 class="sub">박스 방향 규칙 6</h3>
+<div class="grid two">
+<div class="card"><h3>1 박스마다 표시</h3><p class="small">윗면에 박스 번호와 "열린 면" 화살표 테이프.</p></div>
+<div class="card"><h3>2 박스를 먼저 제자리에</h3><p class="small">바닥 표시대로 놓고, 열린 면이 원 안쪽인지 본 뒤 노드를 답니다.</p></div>
+<div class="card"><h3>3 내 구간의 흐름 방향</h3><p class="small">오른쪽 절반은 시계 방향, 왼쪽 절반은 반시계. IN은 이전 박스 쪽, OUT은 다음 박스 쪽.</p></div>
+<div class="card"><h3>4 노드는 천장 정중앙</h3><p class="small">선은 옆면 구멍으로. 열린 면 쪽으로는 선이 지나가지 않아요.</p></div>
+<div class="card"><h3>5 층이 바뀌는 곳 조심</h3><p class="small">흐름이 반대로 돌아가도 박스는 돌리지 않아요.</p></div>
+<div class="card dark"><h3>6 선이 짧으면 멈추고 손 들기</h3><p class="small">박스를 돌려서 해결하지 않아요. 여유 루프나 연장선으로.</p></div>
+</div>
+
+<h3 class="sub">한 박스 다는 순서</h3>
+<ol class="steps">
+<li><b>장착</b> — 박스 천장 중심에 노드를 고정하고, IN·OUT 선을 흐름 방향대로 옆면 구멍으로 뺍니다.</li>
+<li><b>기록</b> — 번호 스티커를 붙이고 순서 기록표에 적어요. 연결된 순서가 곧 번호예요.</li>
+<li><b>한지</b> — 치수를 재고 열린 면에 한지를 붙여 빛을 부드럽게.</li>
+<li><b>배선</b> — 이웃 박스와 JST를 "딸깍" 소리 날 때까지 꽂고, 선에 여유 루프를 남깁니다.</li>
+<li><b>확인</b> — 구간을 이을 때마다 선생님이 전원을 켜고 WLED에서 새 박스까지 켜지는지 봐요.</li>
+</ol>
+
+<h3 class="sub">실수는 JST가 없는 곳에서 난다</h3>
+<div class="grid three">
+<figure><div class="figure" style="padding:8px"><svg viewBox="0 0 520 440" width="100%" height="100%" preserveAspectRatio="xMidYMid meet" role="img" aria-label="컨트롤러 단자대에 V+, DATA, GND 선이 각각 맞게 물려 1번 노드 IN으로 이어진 그림"><rect width="520" height="440" rx="16" fill="#15171C"/><defs><marker id="ar1" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0L10 5L0 10z" fill="#E8A33D"/></marker></defs><text x="40" y="62" font-size="20" fill="#8A8F98" text-anchor="start" font-weight="400">컨트롤러 출력 단자대</text><rect x="40" y="88" width="160" height="196" rx="8" fill="#2F6C8F"/><circle cx="72" cy="134" r="15" fill="#B9B2A3"/><line x1="62" y1="128" x2="82" y2="140" stroke="#5A606B" stroke-width="3"/><text x="98" y="141" font-size="19" fill="#F6F3EC" text-anchor="start" font-weight="600">V+</text><rect x="186" y="125" width="16" height="18" rx="2" fill="#0F1115"/><rect x="180" y="131" width="24" height="6" fill="#D8A84E"/><circle cx="72" cy="186" r="15" fill="#B9B2A3"/><line x1="62" y1="180" x2="82" y2="192" stroke="#5A606B" stroke-width="3"/><text x="98" y="193" font-size="19" fill="#F6F3EC" text-anchor="start" font-weight="600">DATA</text><rect x="186" y="177" width="16" height="18" rx="2" fill="#0F1115"/><rect x="180" y="183" width="24" height="6" fill="#D8A84E"/><circle cx="72" cy="238" r="15" fill="#B9B2A3"/><line x1="62" y1="232" x2="82" y2="244" stroke="#5A606B" stroke-width="3"/><text x="98" y="245" font-size="19" fill="#F6F3EC" text-anchor="start" font-weight="600">GND</text><rect x="186" y="229" width="16" height="18" rx="2" fill="#0F1115"/><rect x="180" y="235" width="24" height="6" fill="#D8A84E"/><path d="M204 134 C260 134 260 176 300 176" fill="none" stroke="#D2553C" stroke-width="5"/><path d="M204 186 L300 186" fill="none" stroke="#4FA36B" stroke-width="5"/><path d="M204 238 C260 238 260 196 300 196" fill="none" stroke="#E6E1D6" stroke-width="5"/><rect x="300" y="166" width="40" height="40" rx="4" fill="#E6E1D6"/><rect x="340" y="166" width="34" height="40" rx="4" fill="#CFC8BA"/><line x1="374" y1="176" x2="404" y2="176" stroke="#D2553C" stroke-width="4"/><line x1="374" y1="186" x2="404" y2="186" stroke="#4FA36B" stroke-width="4"/><line x1="374" y1="196" x2="404" y2="196" stroke="#E6E1D6" stroke-width="4"/><rect x="404" y="162" width="50" height="48" rx="6" fill="#2A2E36" stroke="#5A606B"/><circle cx="429" cy="186" r="26" fill="#E6E1D6" fill-opacity="0.12"/><text x="429" y="234" font-size="18" fill="#C9C3B6" text-anchor="middle" font-weight="400">1번</text><text x="392" y="152" font-size="18" fill="#E8A33D" text-anchor="middle" font-weight="600">IN</text><path d="M462 186 H496" stroke="#E8A33D" stroke-width="3" marker-end="url(#ar1)"/><text x="40" y="346" font-size="21" fill="#F6F3EC" text-anchor="start" font-weight="400"><tspan fill="#7FC79A">✓</tspan> 선 색과 단자 이름이 맞는가</text><text x="40" y="386" font-size="21" fill="#F6F3EC" text-anchor="start" font-weight="400"><tspan fill="#7FC79A">✓</tspan> 1번 노드의 IN 쪽 선인가</text></svg></div><figcaption><b>단자대</b> — 줄의 IN 끝인지, 선 색이 표기와 맞는지.</figcaption></figure>
+<figure><div class="figure" style="padding:8px"><svg viewBox="0 0 520 440" width="100%" height="100%" preserveAspectRatio="xMidYMid meet" role="img" aria-label="25번 노드 OUT 끝의 V+와 GND에 어댑터 급전선을 같은 극끼리 잇고 DATA는 절연한 그림"><rect width="520" height="440" rx="16" fill="#15171C"/><defs><marker id="ar2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0L10 5L0 10z" fill="#8A8F98"/></marker></defs><rect x="30" y="162" width="50" height="48" rx="6" fill="#2A2E36" stroke="#5A606B"/><circle cx="55" cy="186" r="26" fill="#E6E1D6" fill-opacity="0.12"/><text x="55" y="234" font-size="18" fill="#C9C3B6" text-anchor="middle" font-weight="400">25번</text><text x="100" y="160" font-size="18" fill="#E8A33D" text-anchor="middle" font-weight="600">OUT</text><path d="M80 178 C130 178 140 110 200 110" fill="none" stroke="#D2553C" stroke-width="5"/><path d="M80 186 C130 186 150 196 196 196" fill="none" stroke="#4FA36B" stroke-width="5"/><path d="M80 194 C130 194 140 280 200 280" fill="none" stroke="#E6E1D6" stroke-width="5"/><rect x="194" y="186" width="34" height="20" rx="6" fill="#5A606B"/><text x="236" y="203" font-size="17" fill="#8A8F98" text-anchor="start" font-weight="400">DATA는 감싼다</text><rect x="200" y="93" width="54" height="34" rx="5" fill="#B9B2A3"/><rect x="214" y="99" width="10" height="22" rx="2" fill="#E8A33D"/><rect x="232" y="99" width="10" height="22" rx="2" fill="#E8A33D"/><rect x="200" y="263" width="54" height="34" rx="5" fill="#B9B2A3"/><rect x="214" y="269" width="10" height="22" rx="2" fill="#E8A33D"/><rect x="232" y="269" width="10" height="22" rx="2" fill="#E8A33D"/><rect x="392" y="166" width="104" height="60" rx="8" fill="#2A2E36" stroke="#8A8F98" stroke-width="1.5"/><text x="444" y="192" font-size="18" fill="#9FB8C8" text-anchor="middle" font-weight="400">12V</text><text x="444" y="214" font-size="16" fill="#C9C3B6" text-anchor="middle" font-weight="400">어댑터</text><path d="M420 166 V110 H254" fill="none" stroke="#D2553C" stroke-width="5" stroke-linejoin="round"/><path d="M420 226 V280 H254" fill="none" stroke="#8A8F98" stroke-width="5" stroke-linejoin="round"/><text x="330" y="96" font-size="19" fill="#F6F3EC" text-anchor="middle" font-weight="600">V+ ↔ V+</text><text x="330" y="312" font-size="19" fill="#F6F3EC" text-anchor="middle" font-weight="600">GND ↔ GND</text><text x="470" y="256" font-size="17" fill="#E8A33D" text-anchor="middle" font-weight="600">급전선</text><text x="30" y="62" font-size="20" fill="#8A8F98" text-anchor="start" font-weight="400">구간 마지막 노드의 OUT 끝</text><text x="30" y="366" font-size="21" fill="#F6F3EC" text-anchor="start" font-weight="400"><tspan fill="#7FC79A">✓</tspan> 빨강은 V+끼리, GND는 GND끼리</text><text x="30" y="404" font-size="21" fill="#F6F3EC" text-anchor="start" font-weight="400"><tspan fill="#7FC79A">✓</tspan> 전원을 끈 상태에서 잇는다</text></svg></div><figcaption><b>끝단 급전선</b> — V+·GND가 바뀌지 않았는지. 선생님과 함께.</figcaption></figure>
+<figure><div class="figure" style="padding:8px"><svg viewBox="0 0 520 440" width="100%" height="100%" preserveAspectRatio="xMidYMid meet" role="img" aria-label="JST 커넥터가 끝까지 꽂혀 틈이 없는 모습과 반만 꽂혀 금속 핀이 보이는 모습 비교"><rect width="520" height="440" rx="16" fill="#15171C"/><text x="40" y="62" font-size="21" fill="#F6F3EC" text-anchor="start" font-weight="600">끝까지 꽂힘</text><line x1="40" y1="106" x2="110" y2="106" stroke="#D2553C" stroke-width="4"/><line x1="290" y1="106" x2="400" y2="106" stroke="#D2553C" stroke-width="4"/><line x1="40" y1="119" x2="110" y2="119" stroke="#4FA36B" stroke-width="4"/><line x1="290" y1="119" x2="400" y2="119" stroke="#4FA36B" stroke-width="4"/><line x1="40" y1="132" x2="110" y2="132" stroke="#E6E1D6" stroke-width="4"/><line x1="290" y1="132" x2="400" y2="132" stroke="#E6E1D6" stroke-width="4"/><rect x="110" y="92" width="90" height="54" rx="5" fill="#E6E1D6"/><rect x="200" y="96" width="90" height="46" rx="5" fill="#CFC8BA"/><path d="M186 92 l0 -10 l22 0 l6 10" fill="#CFC8BA"/><text x="410" y="128" font-size="21" fill="#F6F3EC" text-anchor="start" font-weight="400"><tspan fill="#7FC79A">✓</tspan> 딸깍</text><text x="410" y="154" font-size="18" fill="#C9C3B6" text-anchor="start" font-weight="400">틈 없음</text><text x="40" y="232" font-size="21" fill="#F6F3EC" text-anchor="start" font-weight="600">반만 꽂힘</text><line x1="40" y1="276" x2="110" y2="276" stroke="#D2553C" stroke-width="4"/><line x1="330" y1="276" x2="400" y2="276" stroke="#D2553C" stroke-width="4"/><line x1="200" y1="276" x2="240" y2="276" stroke="#D8A84E" stroke-width="4"/><line x1="40" y1="289" x2="110" y2="289" stroke="#4FA36B" stroke-width="4"/><line x1="330" y1="289" x2="400" y2="289" stroke="#4FA36B" stroke-width="4"/><line x1="200" y1="289" x2="240" y2="289" stroke="#D8A84E" stroke-width="4"/><line x1="40" y1="302" x2="110" y2="302" stroke="#E6E1D6" stroke-width="4"/><line x1="330" y1="302" x2="400" y2="302" stroke="#E6E1D6" stroke-width="4"/><line x1="200" y1="302" x2="240" y2="302" stroke="#D8A84E" stroke-width="4"/><rect x="110" y="262" width="90" height="54" rx="5" fill="#E6E1D6"/><rect x="240" y="266" width="90" height="46" rx="5" fill="#CFC8BA"/><path d="M226 266 l0 -10 l22 0 l6 10" fill="#CFC8BA"/><text x="220" y="352" font-size="18" fill="#D8A84E" text-anchor="middle" font-weight="400">금속 핀이 보인다</text><path d="M220 334 V322" stroke="#D8A84E" stroke-width="2"/><text x="410" y="298" font-size="21" fill="#F6F3EC" text-anchor="start" font-weight="400"><tspan fill="#E0703C">✗</tspan> 틈 있음</text><text x="40" y="404" font-size="19" fill="#8A8F98" text-anchor="start" font-weight="400">불이 켜졌다 꺼졌다 하면 여기부터</text></svg></div><figcaption><b>덜 꽂힌 커넥터</b> — 금속 핀이 보이면 덜 꽂힌 거예요.</figcaption></figure>
+</div>
+<p class="small muted" style="margin-top:8px">그림의 선 색(빨강 V+, 초록 DATA, 흰색 GND)은 예시예요. 실제 선 색과 단자 표기를 먼저 확인하세요.</p>
+
+<h3 class="sub">결선 체크리스트 <span class="muted small">(전원 켜기 전, 소리 내어)</span></h3>
+<ul class="checklist" id="wire">
+<li><label><input type="checkbox"><span>선생님이 전원을 끈 상태다</span></label></li>
+<li><label><input type="checkbox"><span>박스 열린 면이 원 안쪽을 본다</span></label></li>
+<li><label><input type="checkbox"><span>노드는 천장 정중앙, 선은 옆면 구멍으로 나왔다</span></label></li>
+<li><label><input type="checkbox"><span>IN은 이전 박스 쪽, OUT은 다음 박스 쪽이다</span></label></li>
+<li><label><input type="checkbox"><span>JST를 "딸깍" 소리 나게 끝까지 꽂았다 (금속 핀이 안 보인다)</span></label></li>
+<li><label><input type="checkbox"><span>단자대에 물린 선은 색이 표기와 맞고, 살짝 당겨도 빠지지 않는다</span></label></li>
+<li><label><input type="checkbox"><span>선에 여유 루프가 있다 (팽팽하지 않다)</span></label></li>
+<li><label><input type="checkbox"><span>번호 스티커를 붙이고 순서 기록표에 적었다</span></label></li>
+<li><label><input type="checkbox"><span>멀티미터 도통: V+–GND 사이에 삐 소리가 없다 (삐 소리가 나면 절대 켜지 않는다)</span></label></li>
+<li><label><input type="checkbox"><span>다른 사람이 한 번 확인했다</span></label></li>
+</ul>
+<div class="progress" data-progress-for="wire"><div class="bar"><i></i></div><span class="count">0 / 0</span><button type="button" data-reset-for="wire">다음 박스 · 처음부터</button></div>
+<div class="card warn" style="margin-top:16px"><b>WLED 설정은 바꾸지 않아요.</b> LED 수(구간마다 25개), 출력 핀, 색 순서는 이미 맞춰 두었어요. 설정이 이상해 보이면 만지지 말고 선생님께.</div>
+</section>
+
+<!-- ③ 고장 사냥 -->
+<section class="block" id="hunt" aria-labelledby="hu-h">
+<div class="block-head"><span class="num">3</span><div><h2 id="hu-h">고장 사냥</h2>
+<p class="muted">한 사람이 혼자 고치지 않아요. 순서대로, 한 번에 하나씩.</p></div></div>
+
+<h3 class="sub">막혔을 때 다섯 단계</h3>
+<ol class="steps">
+<li><b>멈춘다</b> — 선생님이 전원을 끄고, 모두 손을 뗍니다.</li>
+<li><b>증상을 말한다</b> — "3번째부터 꺼져 있다"처럼 본 그대로.</li>
+<li><b>후보를 모은다</b> — 아래 증상 고르기나 가이드북에서 원인 2~3개.</li>
+<li><b>하나씩 확인한다</b> — 한 번에 하나만 바꾸고 켜 봐요. 한꺼번에 바꾸면 범인을 몰라요.</li>
+<li><b>한 문장으로 남긴다</b> — "JST가 반만 꽂혀 있었다." 고장 기록에 남겨요.</li>
+</ol>
+
+<h3 class="sub">증상 고르기</h3>
+<p>지금 보이는 것과 가장 가까운 것을 누르세요.</p>
+<div class="symptoms" id="symptoms" style="margin-top:12px"></div>
+<div class="answer" id="answer" aria-live="polite"></div>
+
+<h3 class="sub">범인을 모르겠으면, 반으로 나눈다</h3>
+<div class="card">
+<p>하나씩 보면 최대 100번, 반씩 줄이면 <b>7번</b>이면 찾아요 (2<sup>7</sup> = 128).</p>
+<ol style="margin:10px 0 0;padding-left:20px">
+<li>전원을 끄고, 줄 가운데 커넥터를 빼서 그 뒤쪽을 컨트롤러에 직접 꽂아 봐요 (선생님과 함께).</li>
+<li>뒤쪽이 정상으로 켜지면 범인은 앞쪽, 아니면 뒤쪽.</li>
+<li>남은 쪽의 가운데에서 다시. 범위가 노드 1~2개가 될 때까지.</li>
+</ol>
+<div id="halving" style="margin-top:14px" aria-hidden="true"></div>
+</div>
+</section>
+</main>
+<footer><div class="wrap">빛으로 짓는 인생의 무대 · 이사벨여고 LED 조명 수업 학생용 키트 · 강사 마루나래<br>막히면 혼자 오래 붙잡지 말고, 증상을 적어서 선생님께 보여 주세요.</div></footer>
+<script src="common.js"></script>
+<script src="workbench.js"></script>
+</body>
+</html>
